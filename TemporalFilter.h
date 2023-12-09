@@ -1,6 +1,8 @@
 /*
   TemporalFilter.h 
-  Copyright (c) 2023 Phillip Schmidt.  All right reserved.
+  Author: Phillip Schmidt
+  
+  MIT License
 
  */
 
@@ -23,6 +25,8 @@
 			
 			float getAvgData();
 			float getAvgTime();
+			float getSlope();
+			float getIntercept();
 			//float getStDev();
 			//float getMin();
 			//float getMax();
