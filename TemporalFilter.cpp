@@ -62,7 +62,7 @@ void TemporalFilter::slopeInterceptCompute()
 
 		avgDataCompute();
 
-		// Generate Slope 
+		// Generate Slope and Intercept by Least-Squares regression
 		for(int i=0; i<filterWindowSize; i++)
 		{
 			float xDif = dataList[i] - dataAverage;
@@ -72,12 +72,11 @@ void TemporalFilter::slopeInterceptCompute()
 			botSum += xDif * xDif;
 		}
 
-		if( botSum > 0.000001 ) // avoid divide by zero if all sample have the same time
+		if( botSum > 0.000001 ) // avoid divide by zero if all samples have the same time
 		{
 			slope = topSum / botSum;
 		}
 
-		// Generate intercept
 		intercept = dataAverage - slope * timeAverage;
 
 		slopeIntDone = true;

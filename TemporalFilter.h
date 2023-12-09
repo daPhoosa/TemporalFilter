@@ -1,7 +1,7 @@
 /*
   TemporalFilter.h 
   Author: Phillip Schmidt
-  
+
   MIT License
 
  */
@@ -41,8 +41,8 @@
 			float dataAverage, timeAverage;
 			float slope, intercept;
 			
-			byte filterWindowSize;	// number of samples window	
-			byte newDataPoint;	// oldest data point array index	
+			byte filterWindowSize; // number of samples window	
+			byte newDataPoint;	   // newest data point in array index	
 			
 			float * dataList;			// array for data	
 			float * timeList;			// array for coefficients	
