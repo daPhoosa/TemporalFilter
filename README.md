@@ -15,15 +15,15 @@ TemporalFilter myFilter( filter_Size );
 
 Add data to the filter:
 ```
-myFilter.dataIn( new_data, new_time );
+myFilter.dataIn( float new_data, float new_time );
 ```
 Get filter result:
 ```
-filtered_value = myFilter.filterResult();
-extrapolated_value = myFilter.filterResult( some_future_time );
+float filtered_value = myFilter.filterResult();
+float extrapolated_value = myFilter.filterResult( some_future_time );
 ```
 Additionally the average of all time or data in the filter can be accessed:
 ```
-average_data = myFilter.getAvgData();
-average_time = myFilter.getAvgTime();
+float average_data = myFilter.getAvgData();
+float average_time = myFilter.getAvgTime();
 ```
