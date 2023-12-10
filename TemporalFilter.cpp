@@ -9,7 +9,7 @@
 #include "TemporalFilter.h"
 
 
-TemporalFilter::TemporalFilter(byte filterSize) // initialize filter
+TemporalFilter::TemporalFilter(byte filterSize)
 {	
 	filterWindowSize = filterSize;
 
@@ -25,7 +25,7 @@ TemporalFilter::~TemporalFilter()
 }
 
 
-void TemporalFilter::dataIn(float newData, float newTime) // data input function
+void TemporalFilter::dataIn(float newData, float newTime)
 {  
 	newDataPoint++;	// increment and wrap pointer
 	if(newDataPoint >= filterWindowSize)  newDataPoint = 0;
@@ -33,8 +33,8 @@ void TemporalFilter::dataIn(float newData, float newTime) // data input function
 	dataList[newDataPoint] = newData; // replace oldest data in array
 	timeList[newDataPoint] = newTime; // replace oldest time in array
 	
-	dataAvgDone  = false;
-	slopeIntDone = false;
+	dataAvgNew  = true;
+	slopeIntNew = true;
 }
 
 
@@ -54,7 +54,7 @@ float TemporalFilter::filterResult(float time)
 
 void TemporalFilter::slopeInterceptCompute()
 {
-	if( !slopeIntDone ) // Only re-compute if new data has been added
+	if( slopeIntNew )
 	{
 		float topSum = 0;
 		float botSum = 0;
@@ -79,28 +79,28 @@ void TemporalFilter::slopeInterceptCompute()
 
 		intercept = dataAverage - slope * timeAverage;
 
-		slopeIntDone = true;
+		slopeIntNew = false;
 	}
 }
 
 
 void TemporalFilter::avgDataCompute()
 {
-	if( !dataAvgDone ) // Only re-compute if new data has been added
+	if( dataAvgNew )
 	{
 		float timeAccumulator = 0;
 		float dataAccumulator = 0;
 		
 		for(int i=0; i<filterWindowSize; i++)
 		{
-			dataAccumulator += dataList[i]; // sum all values
-			timeAccumulator += timeList[i]; // sum all values
+			dataAccumulator += dataList[i];
+			timeAccumulator += timeList[i];
 		}
 
 		timeAverage = timeAccumulator / filterWindowSize;
 		dataAverage = dataAccumulator / filterWindowSize;
 
-		dataAvgDone = true;
+		dataAvgNew = false;
 	}
 }
 

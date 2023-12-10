@@ -36,7 +36,7 @@
 			float slopeInterceptCompute();
 			float avgDataCompute();
 
-			bool dataAvgDone, slopeIntDone;
+			bool dataAvgNew, slopeIntNew;
 
 			float dataAverage, timeAverage;
 			float slope, intercept;
