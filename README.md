@@ -17,7 +17,7 @@ TemporalFilter myFilter( filter_Size );
 
 Add data to the filter:
 ```
-myFilter.dataIn( float new_data, float new_time );
+myFilter.dataIn( float new_time, float new_data );
 ```
 Adding data has a very low time cost as none of the computations are done at this step.  This allows for sampling data at a high rate, but only performing the filtering as needed.
 

@@ -19,7 +19,7 @@
 			TemporalFilter(byte filterSize);
 			~TemporalFilter();
 			
-			void  dataIn(float newData, float newTime);
+			void  dataIn(float newTime, float newData);
 			float filterResult();
 			float filterResult(float time);
 			
@@ -33,8 +33,8 @@
 		
 		
 		private:
-			float slopeInterceptCompute();
-			float avgDataCompute();
+			void slopeInterceptCompute();
+			void avgDataCompute();
 
 			bool dataAvgNew, slopeIntNew;
 

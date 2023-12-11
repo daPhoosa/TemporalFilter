@@ -25,7 +25,7 @@ TemporalFilter::~TemporalFilter()
 }
 
 
-void TemporalFilter::dataIn(float newData, float newTime)
+void TemporalFilter::dataIn(float newTime, float newData)
 {  
 	newDataPoint++;	// increment and wrap pointer
 	if(newDataPoint >= filterWindowSize)  newDataPoint = 0;
@@ -65,8 +65,8 @@ void TemporalFilter::slopeInterceptCompute()
 		// Generate Slope and Intercept by Least-Squares regression
 		for(int i=0; i<filterWindowSize; i++)
 		{
-			float xDif = dataList[i] - dataAverage;
-			float yDif = timeList[i] - timeAverage;
+			float xDif = timeList[i] - timeAverage;
+			float yDif = dataList[i] - dataAverage;
 
 			topSum += xDif * yDif;
 			botSum += xDif * xDif;
@@ -77,7 +77,7 @@ void TemporalFilter::slopeInterceptCompute()
 			slope = topSum / botSum;
 		}
 
-		intercept = dataAverage - slope * timeAverage;
+		intercept = dataAverage - (slope * timeAverage);
 
 		slopeIntNew = false;
 	}
@@ -101,6 +101,9 @@ void TemporalFilter::avgDataCompute()
 		dataAverage = dataAccumulator / filterWindowSize;
 
 		dataAvgNew = false;
+
+		//Serial.print("Avg Time: ");Serial.println(timeAverage, 3);
+		//Serial.print("Avg Data: ");Serial.println(dataAverage, 3);
 	}
 }
 
@@ -116,4 +119,18 @@ float TemporalFilter::getIntercept()
 {
 	slopeInterceptCompute();
 	return intercept;
+}
+
+
+float TemporalFilter::getAvgData()
+{
+	avgDataCompute();
+	return dataAverage;
+}
+
+
+float TemporalFilter::getAvgTime()
+{
+	avgDataCompute();
+	return timeAverage;
 }
