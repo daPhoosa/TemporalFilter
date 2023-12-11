@@ -6,7 +6,7 @@ Temporal filter for the Arduino ecosystem used to process data and time pairs.
  
 Filtering is performed by creating a least-squares linear regression through the data.
 
-![illustration](Temporal Filter Illustration.JPG)
+![illustration](Temporal_Filter_Illustration.JPG?raw=true)
 
 The resulting value can be either the point on the linear regression at the time of the most recent sample, or a different time that is passed as an argument.  Care is taken to eliminate recomputation if functions are called without adding new data that might change the output.  
 
