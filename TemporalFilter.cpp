@@ -1,6 +1,6 @@
 /*
   TemporalFilter.cpp
-  Author: Phillip Schmidt
+  Author: Phillip Schmidt, 12/2023
   
   MIT License
 
@@ -101,9 +101,6 @@ void TemporalFilter::avgDataCompute()
 		dataAverage = dataAccumulator / filterWindowSize;
 
 		dataAvgNew = false;
-
-		//Serial.print("Avg Time: ");Serial.println(timeAverage, 3);
-		//Serial.print("Avg Data: ");Serial.println(dataAverage, 3);
 	}
 }
 

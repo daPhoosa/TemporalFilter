@@ -1,6 +1,6 @@
 /*
   TemporalFilter.h 
-  Author: Phillip Schmidt
+  Author: Phillip Schmidt, 12/2023
 
   MIT License
 
@@ -36,16 +36,16 @@
 			void slopeInterceptCompute();
 			void avgDataCompute();
 
-			bool dataAvgNew, slopeIntNew;
+			bool dataAvgNew, slopeIntNew; // indicate that re-computation is needed due to new data
 
 			float dataAverage, timeAverage;
 			float slope, intercept;
 			
 			byte filterWindowSize; // number of samples window	
-			byte newDataPoint;	   // newest data point in array index	
+			byte newDataPoint;	   // index for newest data point in array
 			
-			float * dataList;			// array for data	
-			float * timeList;			// array for coefficients	
+			float * dataList;		// array for data	
+			float * timeList;		// array for time	
 
 	};
 
