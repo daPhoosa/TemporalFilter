@@ -4,7 +4,8 @@
 	
 	MIT License
 
-	This is a unit test that processes known inputs and compares to expected outputs.
+  This is a unit test that processes known inputs and compares to expected outputs.
+  - See accompanying excel spreadsheet for source of validation data.
 
 */
 
@@ -19,7 +20,7 @@ void setup()
   delay(1000);
   Serial.println("");Serial.println("");
 
-  //	TEST #1 - feed in 10 samples and test the output
+  //  TEST #1 - feed in 10 samples and test the output
   // (time, data)
   Serial.println("Start Test #1");
   myFilter.dataIn(1.12, 1.91);
@@ -42,13 +43,13 @@ void setup()
   Serial.print("Test #1 Filter+1:  ");
   floatEquals( myFilter.filterResult(8.69), 7.72342134);
 
-	//	TEST #2 - feed in 5 more samples
-  Serial.println("Start Test #2");
-  myFilter.dataIn(8.62,9.49);
-  myFilter.dataIn(9.55,8.74);
-  myFilter.dataIn(10.48,8.09);
-  myFilter.dataIn(11.41,8.14);
-  myFilter.dataIn(12.34,8.92);
+  //  TEST #2 - feed in 5 more samples, retest
+  Serial.println("\nStart Test #2");
+  myFilter.dataIn(8.62,  9.49);
+  myFilter.dataIn(9.55,  8.74);
+  myFilter.dataIn(10.48, 8.09);
+  myFilter.dataIn(11.41, 8.14);
+  myFilter.dataIn(12.34, 8.92);
 
   Serial.print("Test #2 Slope:     ");
   floatEquals( myFilter.getSlope(), 0.67641003);
