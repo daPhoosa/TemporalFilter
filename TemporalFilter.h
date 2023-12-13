@@ -27,7 +27,7 @@
 			float getAvgTime();
 			float getSlope();
 			float getIntercept();
-			//float getStDev();
+			float getStDev();
 			//float getMin();
 			//float getMax();
 		
@@ -40,6 +40,7 @@
 
 			float dataAverage, timeAverage;
 			float slope, intercept;
+			float StDev;
 			
 			byte filterWindowSize; // number of samples window	
 			byte newDataPoint;	   // index for newest data point in array
