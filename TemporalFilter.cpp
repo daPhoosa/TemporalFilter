@@ -58,6 +58,7 @@ void TemporalFilter::slopeInterceptCompute()
 	{
 		float numerator   = 0;
 		float denominator = 0;
+		float StDevAccum  = 0;
 
 		avgDataCompute();
 
@@ -69,6 +70,7 @@ void TemporalFilter::slopeInterceptCompute()
 
 			numerator   += xDif * yDif;
 			denominator += xDif * xDif;
+			StDevAccum  += yDif * yDif;
 		}
 
 		if( denominator > 0.000001f ) // avoid divide by zero if all samples have the same time
@@ -80,6 +82,7 @@ void TemporalFilter::slopeInterceptCompute()
 			slope = 0;
 		}
 
+		StDev     = sqrt(StDevAccum / filterWindowSize);
 		intercept = dataAverage - (slope * timeAverage);
 
 		newDataFlag_SlopeInt = false;
@@ -133,4 +136,11 @@ float TemporalFilter::getAvgTime()
 {
 	avgDataCompute();
 	return timeAverage;
+}
+
+
+float TemporalFilter::getStDev()
+{
+	slopeInterceptCompute();
+	return StDev;
 }
