@@ -33,8 +33,8 @@ void TemporalFilter::dataIn(float newTime, float newData)
 	dataList[newDataPoint] = newData; // replace oldest data in array
 	timeList[newDataPoint] = newTime; // replace oldest time in array
 	
-	dataAvgNew  = true;
-	slopeIntNew = true;
+	newDataFlag_Average  = true;
+	newDataFlag_SlopeInt = true;
 }
 
 
@@ -54,11 +54,10 @@ float TemporalFilter::filterResult(float time)
 
 void TemporalFilter::slopeInterceptCompute()
 {
-	if( slopeIntNew )
+	if( newDataFlag_SlopeInt )
 	{
-		float topSum = 0;
-		float botSum = 0;
-		slope = 0;
+		float numerator   = 0;
+		float denominator = 0;
 
 		avgDataCompute();
 
@@ -68,25 +67,29 @@ void TemporalFilter::slopeInterceptCompute()
 			float xDif = timeList[i] - timeAverage;
 			float yDif = dataList[i] - dataAverage;
 
-			topSum += xDif * yDif;
-			botSum += xDif * xDif;
+			numerator   += xDif * yDif;
+			denominator += xDif * xDif;
 		}
 
-		if( botSum > 0.000001 ) // avoid divide by zero if all samples have the same time
+		if( denominator > 0.000001f ) // avoid divide by zero if all samples have the same time
 		{
-			slope = topSum / botSum;
+			slope = numerator / denominator;
+		}
+		else
+		{
+			slope = 0;
 		}
 
 		intercept = dataAverage - (slope * timeAverage);
 
-		slopeIntNew = false;
+		newDataFlag_SlopeInt = false;
 	}
 }
 
 
 void TemporalFilter::avgDataCompute()
 {
-	if( dataAvgNew )
+	if( newDataFlag_Average )
 	{
 		float timeAccumulator = 0;
 		float dataAccumulator = 0;
@@ -100,7 +103,7 @@ void TemporalFilter::avgDataCompute()
 		timeAverage = timeAccumulator / filterWindowSize;
 		dataAverage = dataAccumulator / filterWindowSize;
 
-		dataAvgNew = false;
+		newDataFlag_Average = false;
 	}
 }
 

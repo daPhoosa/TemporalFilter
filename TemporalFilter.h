@@ -36,7 +36,7 @@
 			void slopeInterceptCompute();
 			void avgDataCompute();
 
-			bool dataAvgNew, slopeIntNew; // indicate that re-computation is needed due to new data
+			bool newDataFlag_Average, newDataFlag_SlopeInt; // indicate that re-computation is needed due to new data
 
 			float dataAverage, timeAverage;
 			float slope, intercept;
